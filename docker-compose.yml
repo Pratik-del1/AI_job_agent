@@ -1,0 +1,19 @@
+services:
+
+  job-agent:
+
+    build:
+      context: .
+
+    container_name: ai-job-agent
+
+    ports:
+      - "8501:8501"
+
+    volumes:
+
+      # Keep generated application data
+      # outside the container lifecycle.
+      - ./data:/app/data
+
+    restart: unless-stopped
