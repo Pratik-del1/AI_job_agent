@@ -10,3 +10,8 @@ beautifulsoup4
 lxml
 playwright
 streamlit
+pydantic
+pydantic-settings
+python-dotenv
+langchain-google-genai
+pytest

@@ -1,5 +1,6 @@
 import json
 import re
+import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
@@ -20,8 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DATA_DIR = BASE_DIR / "data"
 
+# This file is run as a script, so the project root is not on the
+# import path by default. The jobagent package lives there.
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
+
 RESUME_FILE = (
-    DATA_DIR / "Pratik_Resume-3.pdf"
+    DATA_DIR / "Pratik-Resume-2.pdf"
 )
 
 RECOMMENDED_JOBS_FILE = (
@@ -1062,7 +1068,8 @@ def save_update_metadata(
     new_jobs,
     recommendations,
     excluded_jobs,
-    removed_legacy
+    removed_legacy,
+    matcher="legacy"
 ):
 
     metadata = {
@@ -1084,7 +1091,10 @@ def save_update_metadata(
             int(excluded_jobs),
 
         "removed_legacy_queue_entries":
-            int(removed_legacy)
+            int(removed_legacy),
+
+        "matcher":
+            matcher
     }
 
 
@@ -1097,184 +1107,161 @@ def save_update_metadata(
 
 
 # ============================================================
-# GENERATE RECOMMENDATIONS
+# SETTINGS AND SEEN JOBS
 # ============================================================
 
-def generate_recommendations():
+def load_settings():
+
+    from jobagent.config import get_settings
+
+    return get_settings()
+
+
+def load_seen_jobs(settings):
+
+    from jobagent.matching.ranking import SeenJobs
+
+    return SeenJobs(
+        settings.seen_jobs_file
+    )
+
+
+def record_seen_jobs(
+    seen_jobs,
+    jobs
+):
+
+    from jobagent.matching.ranking import job_key
+
+    seen_jobs.record(
+        job_key(job)
+        for job in jobs
+    )
+
+    seen_jobs.save()
+
+
+def build_matching_embedder(settings):
+
+    from jobagent.matching.pipeline import build_embedder
+
+    return build_embedder(
+        settings
+    )
+
+
+# ============================================================
+# HYBRID RECOMMENDATIONS
+# ============================================================
+
+def generate_hybrid_recommendations(
+    latest_jobs,
+    processed_ids,
+    new_job_ids,
+    excluded_jobs,
+    seen_jobs,
+    settings
+):
+
+    from jobagent.matching.pipeline import run_hybrid
 
     print(
-        "\nFetching latest jobs..."
+        "\nScoring all fetched jobs "
+        "with the hybrid matcher..."
     )
 
-
-    latest_jobs = (
-        fetch_lever_jobs()
+    # Every fetched job is scored and written to scored_jobs.csv.
+    # Jobs already in the application workflow are flagged there
+    # and left out of the recommendations.
+    scored, recommended = run_hybrid(
+        latest_jobs,
+        settings,
+        in_workflow_ids=processed_ids,
+        embedder=build_matching_embedder(
+            settings
+        ),
+        seen=seen_jobs
     )
 
+    recommended.to_csv(
+        RECOMMENDED_JOBS_FILE,
+        index=False
+    )
+
+    record_seen_jobs(
+        seen_jobs,
+        latest_jobs
+    )
+
+    save_update_metadata(
+        total_fetched=len(latest_jobs),
+        new_jobs=len(new_job_ids),
+        recommendations=len(recommended),
+        excluded_jobs=excluded_jobs,
+        removed_legacy=0,
+        matcher="hybrid"
+    )
 
     print(
-        f"Jobs fetched: "
-        f"{len(latest_jobs)}"
+        f"Jobs scored: {len(scored)}"
     )
 
-
-    if not latest_jobs:
-
-        raise RuntimeError(
-            "No jobs were returned."
-        )
-
-
-    # --------------------------------------------------------
-    # Previous recommendations
-    # --------------------------------------------------------
-
-    previous_jobs = (
-        load_previous_jobs()
+    print(
+        f"Saved: {settings.scored_jobs_file}"
     )
 
+    print(
+        "\n"
+        + "=" * 70
+    )
 
-    previous_ids = set()
+    print(
+        "TOP JOB RECOMMENDATIONS (HYBRID)"
+    )
 
+    print(
+        "=" * 70
+    )
 
-    if (
-        not previous_jobs.empty
-        and "job_id" in previous_jobs.columns
+    for _, job in (
+        recommended.iterrows()
     ):
 
-        previous_ids = set(
-            previous_jobs[
-                "job_id"
-            ]
-            .astype(str)
-            .tolist()
+        new_label = (
+            " [NEW]"
+            if bool(job["is_new"])
+            else ""
         )
-
-
-    # --------------------------------------------------------
-    # Detect genuinely new jobs
-    # --------------------------------------------------------
-
-    current_ids = {
-
-        str(job["job_id"])
-
-        for job in latest_jobs
-
-    }
-
-
-    new_job_ids = (
-        current_ids
-        - previous_ids
-    )
-
-
-    print(
-        f"New jobs detected: "
-        f"{len(new_job_ids)}"
-    )
-
-
-    # --------------------------------------------------------
-    # Clean old queue
-    # --------------------------------------------------------
-
-    removed_legacy = (
-        clean_legacy_queue()
-    )
-
-
-    if removed_legacy:
 
         print(
-            f"Removed {removed_legacy} "
-            "legacy PENDING queue entries."
+            f"{job['title']}"
+            f"{new_label} | "
+            f"{job['company']} | "
+            f"{job['location']} | "
+            f"{job['final_score']:.2%} | "
+            f"{job['recommendation']}"
         )
 
-
-    # --------------------------------------------------------
-    # Jobs already being processed/applied
-    # --------------------------------------------------------
-
-    processed_ids = (
-        get_processed_job_ids()
-    )
+    return recommended
 
 
-    # Do not recommend jobs that are already
-    # being handled by the application workflow.
+# ============================================================
+# LEGACY SCORING
+# ============================================================
 
-    available_jobs = [
+def score_jobs_legacy(
+    available_jobs,
+    candidate_profile,
+    matcher
+):
 
-        job
-
-        for job in latest_jobs
-
-        if str(job["job_id"])
-        not in processed_ids
-
-    ]
-
-
-    excluded_jobs = (
-        len(latest_jobs)
-        - len(available_jobs)
-    )
-
-
-    print(
-        f"Jobs excluded because they are "
-        f"already in application workflow: "
-        f"{excluded_jobs}"
-    )
-
-
-    if not available_jobs:
-
-        raise RuntimeError(
-            "All fetched jobs are already "
-            "in the application workflow."
-        )
-
-
-    # --------------------------------------------------------
-    # Candidate
-    # --------------------------------------------------------
-
-    candidate_profile = (
-        load_candidate_profile()
-    )
-
+    # The original scorer, moved here unchanged so it can also be run
+    # on a frozen snapshot for evaluation.
 
     candidate_text = (
         build_candidate_text(
             candidate_profile
         )
-    )
-
-
-    # --------------------------------------------------------
-    # Model
-    # --------------------------------------------------------
-
-    model_path = (
-        find_model_path()
-    )
-
-
-    print(
-        "\nLoading trained matching model..."
-    )
-
-
-    print(
-        f"Model: {model_path}"
-    )
-
-
-    matcher = SentenceTransformer(
-        str(model_path)
     )
 
 
@@ -1432,6 +1419,225 @@ def generate_recommendations():
     )
 
 
+    return jobs_df
+
+
+# ============================================================
+# GENERATE RECOMMENDATIONS
+# ============================================================
+
+def generate_recommendations():
+
+    print(
+        "\nFetching latest jobs..."
+    )
+
+
+    latest_jobs = (
+        fetch_lever_jobs()
+    )
+
+
+    print(
+        f"Jobs fetched: "
+        f"{len(latest_jobs)}"
+    )
+
+
+    if not latest_jobs:
+
+        raise RuntimeError(
+            "No jobs were returned."
+        )
+
+
+    # --------------------------------------------------------
+    # Previous recommendations
+    # --------------------------------------------------------
+
+    previous_jobs = (
+        load_previous_jobs()
+    )
+
+
+    previous_ids = set()
+
+
+    if (
+        not previous_jobs.empty
+        and "job_id" in previous_jobs.columns
+    ):
+
+        previous_ids = set(
+            previous_jobs[
+                "job_id"
+            ]
+            .astype(str)
+            .tolist()
+        )
+
+
+    # --------------------------------------------------------
+    # Detect genuinely new jobs
+    # --------------------------------------------------------
+
+    current_ids = {
+
+        str(job["job_id"])
+
+        for job in latest_jobs
+
+    }
+
+
+    # A job is new when it has never been fetched before, not when
+    # it was merely absent from the previous recommendation list.
+    settings = load_settings()
+
+    seen_jobs = load_seen_jobs(
+        settings
+    )
+
+    new_job_ids = {
+        job_id
+        for job_id in current_ids
+        if seen_jobs.is_new(
+            f"id:{job_id}"
+        )
+    }
+
+
+    print(
+        f"New jobs detected: "
+        f"{len(new_job_ids)}"
+    )
+
+
+    # --------------------------------------------------------
+    # Clean old queue
+    # --------------------------------------------------------
+
+    # A refresh no longer deletes PENDING queue rows.
+    # clean_legacy_queue() is kept for deliberate cleanup only.
+    removed_legacy = 0
+
+
+    if removed_legacy:
+
+        print(
+            f"Removed {removed_legacy} "
+            "legacy PENDING queue entries."
+        )
+
+
+    # --------------------------------------------------------
+    # Jobs already being processed/applied
+    # --------------------------------------------------------
+
+    processed_ids = (
+        get_processed_job_ids()
+    )
+
+
+    # Do not recommend jobs that are already
+    # being handled by the application workflow.
+
+    available_jobs = [
+
+        job
+
+        for job in latest_jobs
+
+        if str(job["job_id"])
+        not in processed_ids
+
+    ]
+
+
+    excluded_jobs = (
+        len(latest_jobs)
+        - len(available_jobs)
+    )
+
+
+    print(
+        f"Jobs excluded because they are "
+        f"already in application workflow: "
+        f"{excluded_jobs}"
+    )
+
+
+    if not available_jobs:
+
+        raise RuntimeError(
+            "All fetched jobs are already "
+            "in the application workflow."
+        )
+
+
+    # --------------------------------------------------------
+    # Hybrid matcher (JOBAGENT_MATCHER=hybrid)
+    # --------------------------------------------------------
+
+    if settings.matcher == "hybrid":
+
+        return generate_hybrid_recommendations(
+            latest_jobs=latest_jobs,
+            processed_ids=processed_ids,
+            new_job_ids=new_job_ids,
+            excluded_jobs=excluded_jobs,
+            seen_jobs=seen_jobs,
+            settings=settings
+        )
+
+
+    # --------------------------------------------------------
+    # Candidate
+    # --------------------------------------------------------
+
+    candidate_profile = (
+        load_candidate_profile()
+    )
+
+
+    candidate_text = (
+        build_candidate_text(
+            candidate_profile
+        )
+    )
+
+
+    # --------------------------------------------------------
+    # Model
+    # --------------------------------------------------------
+
+    model_path = (
+        find_model_path()
+    )
+
+
+    print(
+        "\nLoading trained matching model..."
+    )
+
+
+    print(
+        f"Model: {model_path}"
+    )
+
+
+    matcher = SentenceTransformer(
+        str(model_path)
+    )
+
+
+    jobs_df = score_jobs_legacy(
+        available_jobs,
+        candidate_profile,
+        matcher
+    )
+
+
     # --------------------------------------------------------
     # New flag
     # --------------------------------------------------------
@@ -1527,6 +1733,12 @@ def generate_recommendations():
     ].to_csv(
         RECOMMENDED_JOBS_FILE,
         index=False
+    )
+
+
+    record_seen_jobs(
+        seen_jobs,
+        latest_jobs
     )
 
 

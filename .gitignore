@@ -59,7 +59,7 @@ data/application_form.png
 # Personal Candidate Data
 # ============================================================
 
-data/Pratik_Resume-3.pdf
+data/*.pdf
 data/candidate_profile.json
 
 # ============================================================
@@ -69,6 +69,11 @@ data/candidate_profile.json
 data/application_queue.csv
 data/job_update_metadata.json
 data/recommended_jobs.csv
+data/resume_profile.json
+data/scored_jobs.csv
+data/seen_jobs.json
+eval/labels.csv
+data/preferences.json
 
 # ============================================================
 # Model files

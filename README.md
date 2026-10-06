@@ -550,6 +550,78 @@ The worker continuously monitors the application queue for approved applications
 
 ---
 
+## 🧾 Structured Resume Profile
+
+The `jobagent` package extracts the resume into a validated, structured profile: contact details, skills (with category and evidence), experience, education, projects, technologies, seniority and job preferences.
+
+Extraction uses an LLM with a Pydantic schema. The default provider is Google Gemini: copy `.env.example` to `.env` and set `GOOGLE_API_KEY` (the model name is set there too, in `JOBAGENT_LLM_MODEL`). To use OpenAI instead, install `langchain-openai` and set `JOBAGENT_LLM_PROVIDER=openai`, `JOBAGENT_LLM_MODEL` and `OPENAI_API_KEY`. Without a key, or if the call fails, it falls back to regex parsing, which fills contact details and skills only.
+
+```bash
+python -m jobagent.resume.cli
+```
+
+The profile is written to `data/resume_profile.json`. Useful options: `--resume PATH`, `--output PATH`, `--no-llm`.
+
+The resume read by default is `JOBAGENT_RESUME_FILE` in `.env`. The job updater (`RESUME_FILE` in `automation/job_updater.py`) and the worker's upload (`resume_path` in `data/candidate_profile.json`) each name the resume separately, so change all three together.
+
+LLM requests time out after 60 seconds, and transient errors (503, 429, timeouts) are retried twice with exponential backoff before falling back to regex parsing. These are adjustable in `.env`; see `.env.example`.
+
+To set your own job preferences, create `data/preferences.json`. Any field you supply replaces what was read from the resume:
+
+```json
+{
+  "preferred_roles": ["Machine Learning Engineer", "AI Engineer"],
+  "preferred_locations": ["Bengaluru", "Remote"],
+  "work_modes": ["hybrid"],
+  "excluded_roles": ["Sales"]
+}
+```
+
+The hybrid matcher scores jobs against this profile. The legacy matcher still uses its own resume parser, and form filling still uses `data/candidate_profile.json`.
+
+---
+
+## 🎯 Hybrid Explainable Matching
+
+Two matchers are available, chosen with `JOBAGENT_MATCHER` in `.env`:
+
+- `legacy`: the original scorer in `automation/job_updater.py`, unchanged. This is the default when the variable is not set.
+- `hybrid`: the scorer in `jobagent/matching/`. Every score is computed deterministically from the resume profile, the posting and `jobagent/matching/resources/taxonomy.json`. No LLM is involved.
+
+The hybrid score is a weighted mean of five components:
+
+| Component | Default weight | How it is computed |
+|---|---|---|
+| Skill | 0.30 | Whole-term taxonomy matching; required skills count 1.0, unlabelled 0.7, nice-to-have 0.4 |
+| Role | 0.30 | Job title mapped to a role family and compared with your stated roles |
+| Experience | 0.20 | Years the posting asks for (or implied by a seniority word) against yours |
+| Semantic | 0.10 | Embedding similarity between resume facets and chunks of the cleaned posting |
+| Preference | 0.10 | Location, work mode, employment type and excluded roles from `data/preferences.json` |
+
+A component that cannot be scored for a job is shown as `n/a` and its weight is shared among the others. Weights, thresholds, label caps and the embedding model are settings; see `jobagent/config.py` and `.env.example`.
+
+The hybrid matcher needs `data/resume_profile.json` (run `python -m jobagent.resume.cli` first). On each refresh it scores every fetched job into `data/scored_jobs.csv`, then writes the top 10 not already in the application workflow to `data/recommended_jobs.csv`. Jobs are ranked by score; a job being new only breaks ties between scores within one point.
+
+To add a skill, alias or role family, edit `taxonomy.json`. No code change is needed.
+
+### Comparing the matchers
+
+```bash
+python -m jobagent.matching.evaluate snapshot                 # freeze the live feed
+python -m jobagent.matching.evaluate template eval/snapshots/NAME.json
+python -m jobagent.matching.evaluate compare eval/snapshots/NAME.json
+```
+
+Fill the `label` column of `eval/labels.csv` with `relevant`, `maybe` or `not_relevant`. The comparison then reports Precision@5, NDCG@10, pairwise ordering accuracy and each component's contribution for both matchers. Without labels it reports no quality metrics.
+
+### Tests
+
+```bash
+python -m pytest
+```
+
+---
+
 ## 🔐 Privacy
 
 The project contains personal candidate information.

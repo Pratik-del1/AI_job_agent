@@ -54,6 +54,33 @@ QUEUE_COLUMNS = [
 
 
 # ============================================================
+# SCORE FORMATTING
+# ============================================================
+
+def format_score(value):
+
+    # A component the matcher could not score is empty in the CSV.
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return "n/a"
+
+    if pd.isna(number):
+        return "n/a"
+
+    return f"{number:.1%}"
+
+
+def has_value(job, column):
+
+    return (
+        column in job.index
+        and isinstance(job[column], str)
+        and job[column].strip() != ""
+    )
+
+
+# ============================================================
 # LOAD RECOMMENDED JOBS
 # ============================================================
 
@@ -631,18 +658,46 @@ else:
 
             st.metric(
                 "Skill Match",
-                f"{float(job['skill_match']):.1%}"
+                format_score(job["skill_match"])
             )
 
             st.metric(
                 "Role Match",
-                f"{float(job['role_match']):.1%}"
+                format_score(job["role_match"])
             )
 
             st.metric(
                 "Experience",
-                f"{float(job['experience_match']):.1%}"
+                format_score(job["experience_match"])
             )
+
+            # Present only when the hybrid matcher produced the list.
+            if "semantic_score" in job.index:
+
+                st.metric(
+                    "Semantic",
+                    format_score(job["semantic_score"])
+                )
+
+                st.metric(
+                    "Preference",
+                    format_score(job["preference_score"])
+                )
+
+        # ----------------------------------------------------
+        # SCORE EXPLANATION (hybrid matcher)
+        # ----------------------------------------------------
+
+        if has_value(job, "explanation"):
+
+            with st.expander(
+                "Why this score"
+            ):
+
+                st.text(
+                    job["explanation"]
+                )
+
 
         # ----------------------------------------------------
         # APPLICATION STATUS

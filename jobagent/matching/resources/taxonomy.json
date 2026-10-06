@@ -1,0 +1,2103 @@
+{
+ "_about": "Edit this file to add skills, aliases, role families or patterns. No code change is needed. Aliases are matched as whole terms, case-insensitively. Section-heading entries are regular expressions tested against short heading-like lines; nice_to_have is checked first, then ignore, required, neutral. Skills whose type is listed in unscored_skill_types are kept for reference but never extracted or scored.",
+ "unscored_skill_types": [
+  "soft"
+ ],
+ "skills": [
+  {
+   "name": "Python",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "SQL",
+   "type": "technology",
+   "aliases": [
+    "postgresql",
+    "postgres",
+    "mysql",
+    "t-sql",
+    "pl/sql",
+    "nosql"
+   ]
+  },
+  {
+   "name": "JavaScript",
+   "type": "technology",
+   "aliases": [
+    "js",
+    "ecmascript"
+   ]
+  },
+  {
+   "name": "TypeScript",
+   "type": "technology",
+   "aliases": [
+    "ts"
+   ]
+  },
+  {
+   "name": "Java",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Go",
+   "type": "technology",
+   "aliases": [
+    "golang"
+   ]
+  },
+  {
+   "name": "C++",
+   "type": "technology",
+   "aliases": [
+    "cpp"
+   ]
+  },
+  {
+   "name": "C#",
+   "type": "technology",
+   "aliases": [
+    "csharp"
+   ]
+  },
+  {
+   "name": "Rust",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Scala",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Kotlin",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Swift",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Ruby",
+   "type": "technology",
+   "aliases": [
+    "ruby on rails",
+    "rails"
+   ]
+  },
+  {
+   "name": "PHP",
+   "type": "technology",
+   "aliases": [
+    "laravel"
+   ]
+  },
+  {
+   "name": "R",
+   "type": "technology",
+   "aliases": [
+    "r programming",
+    "r language",
+    "rstudio"
+   ]
+  },
+  {
+   "name": "Bash",
+   "type": "technology",
+   "aliases": [
+    "shell scripting",
+    "shell scripts"
+   ]
+  },
+  {
+   "name": "HTML",
+   "type": "technology",
+   "aliases": [
+    "html5"
+   ]
+  },
+  {
+   "name": "CSS",
+   "type": "technology",
+   "aliases": [
+    "css3",
+    "scss",
+    "sass",
+    "tailwind",
+    "tailwindcss"
+   ]
+  },
+  {
+   "name": "Machine Learning",
+   "type": "skill",
+   "aliases": [
+    "ml",
+    "machine-learning"
+   ]
+  },
+  {
+   "name": "Deep Learning",
+   "type": "skill",
+   "aliases": [
+    "dl",
+    "neural networks",
+    "neural network",
+    "deep neural networks"
+   ]
+  },
+  {
+   "name": "Natural Language Processing",
+   "type": "skill",
+   "aliases": [
+    "nlp",
+    "natural-language processing",
+    "text classification",
+    "entity extraction",
+    "named entity recognition"
+   ]
+  },
+  {
+   "name": "Large Language Model",
+   "type": "skill",
+   "aliases": [
+    "llm",
+    "llms",
+    "large language models",
+    "generative ai",
+    "genai",
+    "gen ai",
+    "foundation models"
+   ]
+  },
+  {
+   "name": "Retrieval-Augmented Generation",
+   "type": "skill",
+   "aliases": [
+    "rag",
+    "retrieval augmented generation",
+    "retrieval-augmented generation (rag)",
+    "retrieval pipelines"
+   ]
+  },
+  {
+   "name": "AI Agents",
+   "type": "skill",
+   "aliases": [
+    "ai agent",
+    "agentic",
+    "agentic ai",
+    "agentic applications",
+    "agentic systems",
+    "multi-agent",
+    "llm agents",
+    "voice agents"
+   ]
+  },
+  {
+   "name": "Prompt Engineering",
+   "type": "skill",
+   "aliases": [
+    "prompt design",
+    "prompting"
+   ]
+  },
+  {
+   "name": "Fine-Tuning",
+   "type": "skill",
+   "aliases": [
+    "fine tuning",
+    "finetuning",
+    "lora",
+    "peft"
+   ]
+  },
+  {
+   "name": "Computer Vision",
+   "type": "skill",
+   "aliases": [
+    "cv models",
+    "image classification",
+    "object detection"
+   ]
+  },
+  {
+   "name": "Speech Processing",
+   "type": "skill",
+   "aliases": [
+    "speech recognition",
+    "asr",
+    "tts",
+    "text-to-speech",
+    "speech-to-text",
+    "speech"
+   ]
+  },
+  {
+   "name": "Recommender Systems",
+   "type": "skill",
+   "aliases": [
+    "recommendation systems",
+    "recommendation engine"
+   ]
+  },
+  {
+   "name": "Time Series",
+   "type": "skill",
+   "aliases": [
+    "time-series",
+    "forecasting"
+   ]
+  },
+  {
+   "name": "Reinforcement Learning",
+   "type": "skill",
+   "aliases": [
+    "rl"
+   ]
+  },
+  {
+   "name": "Supervised Learning",
+   "type": "skill",
+   "aliases": []
+  },
+  {
+   "name": "Unsupervised Learning",
+   "type": "skill",
+   "aliases": [
+    "clustering"
+   ]
+  },
+  {
+   "name": "Classification",
+   "type": "skill",
+   "aliases": []
+  },
+  {
+   "name": "Regression",
+   "type": "skill",
+   "aliases": []
+  },
+  {
+   "name": "Feature Engineering",
+   "type": "skill",
+   "aliases": []
+  },
+  {
+   "name": "Model Evaluation",
+   "type": "skill",
+   "aliases": [
+    "evaluation metrics",
+    "model validation",
+    "cross-validation",
+    "cross validation"
+   ]
+  },
+  {
+   "name": "Hyperparameter Tuning",
+   "type": "skill",
+   "aliases": [
+    "hyperparameter optimization"
+   ]
+  },
+  {
+   "name": "Model Deployment",
+   "type": "skill",
+   "aliases": [
+    "model deployments",
+    "model serving",
+    "model inference",
+    "inference optimization",
+    "inference optimizations"
+   ]
+  },
+  {
+   "name": "MLOps",
+   "type": "skill",
+   "aliases": [
+    "ml ops",
+    "llmops"
+   ]
+  },
+  {
+   "name": "Embeddings",
+   "type": "skill",
+   "aliases": [
+    "vector embeddings",
+    "embedding models"
+   ]
+  },
+  {
+   "name": "Semantic Search",
+   "type": "skill",
+   "aliases": [
+    "vector search",
+    "information retrieval"
+   ]
+  },
+  {
+   "name": "Vector Databases",
+   "type": "technology",
+   "aliases": [
+    "vector database",
+    "vector db",
+    "faiss",
+    "pinecone",
+    "chromadb",
+    "chroma",
+    "weaviate",
+    "milvus",
+    "qdrant",
+    "pgvector"
+   ]
+  },
+  {
+   "name": "Transformers",
+   "type": "technology",
+   "aliases": [
+    "transformer models",
+    "transformer-based",
+    "bert",
+    "hugging face",
+    "huggingface"
+   ]
+  },
+  {
+   "name": "PyTorch",
+   "type": "technology",
+   "aliases": [
+    "torch"
+   ]
+  },
+  {
+   "name": "TensorFlow",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Keras",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Scikit-learn",
+   "type": "technology",
+   "aliases": [
+    "sklearn",
+    "scikit learn"
+   ]
+  },
+  {
+   "name": "XGBoost",
+   "type": "technology",
+   "aliases": [
+    "lightgbm",
+    "catboost",
+    "gradient boosting"
+   ]
+  },
+  {
+   "name": "LangChain",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "LangGraph",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "LlamaIndex",
+   "type": "technology",
+   "aliases": [
+    "llama index"
+   ]
+  },
+  {
+   "name": "OpenAI API",
+   "type": "technology",
+   "aliases": [
+    "openai",
+    "gpt-4",
+    "gpt"
+   ]
+  },
+  {
+   "name": "LLM APIs",
+   "type": "technology",
+   "aliases": [
+    "llm api",
+    "anthropic",
+    "gemini api",
+    "claude"
+   ]
+  },
+  {
+   "name": "Open-Source LLMs",
+   "type": "technology",
+   "aliases": [
+    "llama",
+    "mistral",
+    "qwen",
+    "gemma",
+    "deepseek"
+   ]
+  },
+  {
+   "name": "MLflow",
+   "type": "technology",
+   "aliases": [
+    "weights & biases",
+    "wandb"
+   ]
+  },
+  {
+   "name": "GPU Computing",
+   "type": "technology",
+   "aliases": [
+    "gpus",
+    "gpu",
+    "cuda",
+    "distributed training"
+   ]
+  },
+  {
+   "name": "Data Analysis",
+   "type": "skill",
+   "aliases": [
+    "data analytics",
+    "analytics",
+    "eda",
+    "exploratory data analysis",
+    "exploratory analysis"
+   ]
+  },
+  {
+   "name": "Data Cleaning",
+   "type": "skill",
+   "aliases": [
+    "data wrangling",
+    "data preprocessing",
+    "data transformation"
+   ]
+  },
+  {
+   "name": "Statistics",
+   "type": "skill",
+   "aliases": [
+    "statistical analysis",
+    "statistical modeling",
+    "statistical",
+    "descriptive statistics",
+    "hypothesis testing",
+    "a/b testing",
+    "ab testing"
+   ]
+  },
+  {
+   "name": "Data Visualization",
+   "type": "skill",
+   "aliases": [
+    "dashboards",
+    "dashboard development",
+    "visualization",
+    "reporting"
+   ]
+  },
+  {
+   "name": "Excel",
+   "type": "technology",
+   "aliases": [
+    "microsoft excel",
+    "ms excel",
+    "spreadsheets",
+    "google sheets"
+   ]
+  },
+  {
+   "name": "Tableau",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Power BI",
+   "type": "technology",
+   "aliases": [
+    "powerbi"
+   ]
+  },
+  {
+   "name": "Looker",
+   "type": "technology",
+   "aliases": [
+    "looker studio"
+   ]
+  },
+  {
+   "name": "Pandas",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "NumPy",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Matplotlib",
+   "type": "technology",
+   "aliases": [
+    "seaborn",
+    "plotly"
+   ]
+  },
+  {
+   "name": "Jupyter",
+   "type": "technology",
+   "aliases": [
+    "jupyter notebook",
+    "notebooks"
+   ]
+  },
+  {
+   "name": "Data Engineering",
+   "type": "skill",
+   "aliases": [
+    "data pipelines",
+    "data pipeline",
+    "etl",
+    "elt"
+   ]
+  },
+  {
+   "name": "Apache Spark",
+   "type": "technology",
+   "aliases": [
+    "spark",
+    "pyspark"
+   ]
+  },
+  {
+   "name": "Airflow",
+   "type": "technology",
+   "aliases": [
+    "apache airflow"
+   ]
+  },
+  {
+   "name": "dbt",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Data Warehousing",
+   "type": "skill",
+   "aliases": [
+    "data warehouse",
+    "snowflake",
+    "bigquery",
+    "redshift",
+    "databricks"
+   ]
+  },
+  {
+   "name": "Kafka",
+   "type": "technology",
+   "aliases": [
+    "apache kafka",
+    "pub/sub",
+    "pubsub",
+    "kinesis",
+    "streaming"
+   ]
+  },
+  {
+   "name": "Data Modeling",
+   "type": "skill",
+   "aliases": [
+    "data modelling",
+    "schema design"
+   ]
+  },
+  {
+   "name": "MongoDB",
+   "type": "technology",
+   "aliases": [
+    "mongo"
+   ]
+  },
+  {
+   "name": "Redis",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Elasticsearch",
+   "type": "technology",
+   "aliases": [
+    "opensearch",
+    "elastic search"
+   ]
+  },
+  {
+   "name": "Hadoop",
+   "type": "technology",
+   "aliases": [
+    "hive"
+   ]
+  },
+  {
+   "name": "REST APIs",
+   "type": "skill",
+   "aliases": [
+    "rest api",
+    "restful",
+    "restful apis",
+    "api development",
+    "api design",
+    "apis",
+    "api"
+   ]
+  },
+  {
+   "name": "GraphQL",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "gRPC",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "FastAPI",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Flask",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Django",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Node.js",
+   "type": "technology",
+   "aliases": [
+    "nodejs",
+    "express.js",
+    "expressjs"
+   ]
+  },
+  {
+   "name": "Spring Boot",
+   "type": "technology",
+   "aliases": [
+    "spring"
+   ]
+  },
+  {
+   "name": ".NET",
+   "type": "technology",
+   "aliases": [
+    "dotnet",
+    "asp.net"
+   ]
+  },
+  {
+   "name": "Microservices",
+   "type": "skill",
+   "aliases": [
+    "microservice",
+    "service-oriented architecture",
+    "soa"
+   ]
+  },
+  {
+   "name": "Distributed Systems",
+   "type": "skill",
+   "aliases": [
+    "distributed system",
+    "scalable systems",
+    "high-scale systems"
+   ]
+  },
+  {
+   "name": "System Design",
+   "type": "skill",
+   "aliases": [
+    "software architecture",
+    "architecture design"
+   ]
+  },
+  {
+   "name": "Data Structures & Algorithms",
+   "type": "skill",
+   "aliases": [
+    "data structures",
+    "algorithms",
+    "dsa"
+   ]
+  },
+  {
+   "name": "Object-Oriented Programming",
+   "type": "skill",
+   "aliases": [
+    "oop",
+    "object oriented"
+   ]
+  },
+  {
+   "name": "Pydantic",
+   "type": "technology",
+   "aliases": []
+  },
+  {
+   "name": "Message Queues",
+   "type": "technology",
+   "aliases": [
+    "rabbitmq",
+    "sqs",
+    "celery"
+   ]
+  },
+  {
+   "name": "Streamlit",
+   "type": "technology",
+   "aliases": [
+    "gradio"
+   ]
+  },
+  {
+   "name": "React",
+   "type": "technology",
+   "aliases": [
+    "reactjs",
+    "react.js",
+    "redux",
+    "next.js",
+    "nextjs"
+   ]
+  },
+  {
+   "name": "Angular",
+   "type": "technology",
+   "aliases": [
+    "angularjs"
+   ]
+  },
+  {
+   "name": "Vue",
+   "type": "technology",
+   "aliases": [
+    "vue.js",
+    "vuejs"
+   ]
+  },
+  {
+   "name": "Frontend Development",
+   "type": "skill",
+   "aliases": [
+    "front-end development",
+    "front end development",
+    "ui development"
+   ]
+  },
+  {
+   "name": "Mobile Development",
+   "type": "skill",
+   "aliases": [
+    "android",
+    "ios",
+    "react native",
+    "flutter"
+   ]
+  },
+  {
+   "name": "UI/UX Design",
+   "type": "skill",
+   "aliases": [
+    "ux design",
+    "ui design",
+    "figma",
+    "user experience"
+   ]
+  },
+  {
+   "name": "AWS",
+   "type": "technology",
+   "aliases": [
+    "amazon web services",
+    "ec2",
+    "s3",
+    "lambda",
+    "sagemaker"
+   ]
+  },
+  {
+   "name": "GCP",
+   "type": "technology",
+   "aliases": [
+    "google cloud",
+    "google cloud platform",
+    "vertex ai"
+   ]
+  },
+  {
+   "name": "Azure",
+   "type": "technology",
+   "aliases": [
+    "microsoft azure",
+    "azure ml"
+   ]
+  },
+  {
+   "name": "Docker",
+   "type": "technology",
+   "aliases": [
+    "containerization",
+    "containers"
+   ]
+  },
+  {
+   "name": "Kubernetes",
+   "type": "technology",
+   "aliases": [
+    "k8s",
+    "helm"
+   ]
+  },
+  {
+   "name": "CI/CD",
+   "type": "skill",
+   "aliases": [
+    "ci cd",
+    "continuous integration",
+    "continuous delivery",
+    "jenkins",
+    "github actions",
+    "gitlab ci"
+   ]
+  },
+  {
+   "name": "Terraform",
+   "type": "technology",
+   "aliases": [
+    "infrastructure as code",
+    "iac",
+    "ansible"
+   ]
+  },
+  {
+   "name": "Linux",
+   "type": "technology",
+   "aliases": [
+    "unix"
+   ]
+  },
+  {
+   "name": "Git",
+   "type": "technology",
+   "aliases": [
+    "github",
+    "gitlab",
+    "bitbucket",
+    "version control"
+   ]
+  },
+  {
+   "name": "Monitoring & Observability",
+   "type": "skill",
+   "aliases": [
+    "observability",
+    "monitoring",
+    "prometheus",
+    "grafana",
+    "datadog"
+   ]
+  },
+  {
+   "name": "Site Reliability Engineering",
+   "type": "skill",
+   "aliases": [
+    "sre",
+    "incident management",
+    "on-call"
+   ]
+  },
+  {
+   "name": "Networking",
+   "type": "skill",
+   "aliases": [
+    "tcp/ip",
+    "load balancing"
+   ]
+  },
+  {
+   "name": "Cloud Computing",
+   "type": "skill",
+   "aliases": [
+    "cloud platforms",
+    "cloud infrastructure",
+    "cloud services"
+   ]
+  },
+  {
+   "name": "Test Automation",
+   "type": "skill",
+   "aliases": [
+    "automation testing",
+    "automated testing",
+    "selenium",
+    "playwright",
+    "cypress",
+    "pytest",
+    "test frameworks"
+   ]
+  },
+  {
+   "name": "Quality Assurance",
+   "type": "skill",
+   "aliases": [
+    "qa",
+    "manual testing",
+    "test cases",
+    "test plans"
+   ]
+  },
+  {
+   "name": "Unit Testing",
+   "type": "skill",
+   "aliases": [
+    "unit tests",
+    "tdd",
+    "test-driven development"
+   ]
+  },
+  {
+   "name": "Performance Testing",
+   "type": "skill",
+   "aliases": [
+    "load testing",
+    "jmeter"
+   ]
+  },
+  {
+   "name": "Security",
+   "type": "skill",
+   "aliases": [
+    "application security",
+    "cybersecurity",
+    "infosec",
+    "owasp"
+   ]
+  },
+  {
+   "name": "Sales",
+   "type": "skill",
+   "aliases": [
+    "b2b sales",
+    "enterprise sales",
+    "outbound",
+    "prospecting",
+    "pipeline generation",
+    "sdr",
+    "business development",
+    "quota"
+   ]
+  },
+  {
+   "name": "CRM",
+   "type": "technology",
+   "aliases": [
+    "salesforce",
+    "hubspot",
+    "sfdc"
+   ]
+  },
+  {
+   "name": "Revenue Operations",
+   "type": "skill",
+   "aliases": [
+    "revops",
+    "rev ops",
+    "sales operations",
+    "gtm operations",
+    "gtm systems"
+   ]
+  },
+  {
+   "name": "Marketing",
+   "type": "skill",
+   "aliases": [
+    "demand generation",
+    "seo",
+    "content marketing",
+    "marketing automation"
+   ]
+  },
+  {
+   "name": "Customer Success",
+   "type": "skill",
+   "aliases": [
+    "customer support",
+    "account management",
+    "customer-facing"
+   ]
+  },
+  {
+   "name": "Product Management",
+   "type": "skill",
+   "aliases": [
+    "product roadmap",
+    "product strategy",
+    "prds"
+   ]
+  },
+  {
+   "name": "Project Management",
+   "type": "skill",
+   "aliases": [
+    "program management",
+    "jira",
+    "agile",
+    "scrum"
+   ]
+  },
+  {
+   "name": "Stakeholder Management",
+   "type": "soft",
+   "aliases": [
+    "cross-functional collaboration",
+    "cross-functional teams"
+   ]
+  },
+  {
+   "name": "Business Analysis",
+   "type": "skill",
+   "aliases": [
+    "requirements gathering",
+    "business requirements"
+   ]
+  },
+  {
+   "name": "Financial Analysis",
+   "type": "skill",
+   "aliases": [
+    "financial modeling",
+    "financial modelling",
+    "fp&a"
+   ]
+  },
+  {
+   "name": "Operations",
+   "type": "skill",
+   "aliases": [
+    "operations management",
+    "process improvement",
+    "executive assistant",
+    "calendar management"
+   ]
+  },
+  {
+   "name": "Recruiting",
+   "type": "skill",
+   "aliases": [
+    "talent acquisition",
+    "hris",
+    "human resources"
+   ]
+  },
+  {
+   "name": "Technical Writing",
+   "type": "skill",
+   "aliases": [
+    "documentation"
+   ]
+  },
+  {
+   "name": "Communication",
+   "type": "soft",
+   "aliases": [
+    "communication skills",
+    "written communication",
+    "verbal communication",
+    "presentation skills"
+   ]
+  },
+  {
+   "name": "Leadership",
+   "type": "soft",
+   "aliases": [
+    "people management",
+    "team leadership",
+    "mentoring",
+    "mentorship"
+   ]
+  },
+  {
+   "name": "Problem Solving",
+   "type": "soft",
+   "aliases": [
+    "problem-solving",
+    "analytical thinking",
+    "analytical skills"
+   ]
+  }
+ ],
+ "role_families": [
+  {
+   "id": "ml_engineering",
+   "label": "ML Engineer",
+   "aliases": [
+    "machine learning engineer",
+    "ml engineer",
+    "mle",
+    "ai/ml engineer",
+    "ai ml engineer",
+    "ml/ai engineer",
+    "applied ml engineer",
+    "deep learning engineer",
+    "machine learning developer"
+   ]
+  },
+  {
+   "id": "ai_engineering",
+   "label": "AI Engineer",
+   "aliases": [
+    "ai engineer",
+    "artificial intelligence engineer",
+    "applied ai engineer",
+    "ai developer",
+    "ai software engineer"
+   ]
+  },
+  {
+   "id": "genai_engineering",
+   "label": "GenAI / LLM Engineer",
+   "aliases": [
+    "genai engineer",
+    "gen ai engineer",
+    "generative ai engineer",
+    "llm engineer",
+    "prompt engineer"
+   ]
+  },
+  {
+   "id": "agentic_ai",
+   "label": "Agentic AI Engineer",
+   "aliases": [
+    "agentic ai engineer",
+    "ai agent engineer",
+    "ai agents engineer",
+    "agent engineer",
+    "ai agents",
+    "agents"
+   ]
+  },
+  {
+   "id": "nlp_engineering",
+   "label": "NLP Engineer",
+   "aliases": [
+    "nlp engineer",
+    "nlp scientist",
+    "natural language processing engineer",
+    "nlp",
+    "speech engineer"
+   ]
+  },
+  {
+   "id": "ml_research",
+   "label": "ML Research",
+   "aliases": [
+    "research scientist",
+    "applied scientist",
+    "ml scientist",
+    "ai researcher",
+    "research engineer"
+   ]
+  },
+  {
+   "id": "mlops",
+   "label": "MLOps Engineer",
+   "aliases": [
+    "mlops engineer",
+    "ml platform engineer",
+    "ml infrastructure engineer"
+   ]
+  },
+  {
+   "id": "data_science",
+   "label": "Data Scientist",
+   "aliases": [
+    "data scientist",
+    "decision scientist"
+   ]
+  },
+  {
+   "id": "data_analysis",
+   "label": "Data Analyst",
+   "aliases": [
+    "data analyst",
+    "analytics analyst",
+    "reporting analyst",
+    "bi analyst",
+    "business intelligence analyst",
+    "product analyst",
+    "ai analyst",
+    "analytics specialist",
+    "insights analyst"
+   ]
+  },
+  {
+   "id": "business_analysis",
+   "label": "Business Analyst",
+   "aliases": [
+    "business analyst",
+    "operations analyst",
+    "strategy analyst",
+    "summer analyst"
+   ]
+  },
+  {
+   "id": "data_engineering",
+   "label": "Data Engineer",
+   "aliases": [
+    "data engineer",
+    "analytics engineer",
+    "etl developer",
+    "big data engineer"
+   ]
+  },
+  {
+   "id": "backend_engineering",
+   "label": "Backend Engineer",
+   "aliases": [
+    "backend engineer",
+    "back-end engineer",
+    "backend developer",
+    "back end engineer",
+    "server-side engineer",
+    "python developer",
+    "java developer"
+   ]
+  },
+  {
+   "id": "fullstack_engineering",
+   "label": "Full-Stack Engineer",
+   "aliases": [
+    "full stack engineer",
+    "full-stack engineer",
+    "fullstack engineer",
+    "full stack developer",
+    "full-stack developer"
+   ]
+  },
+  {
+   "id": "frontend_engineering",
+   "label": "Frontend Engineer",
+   "aliases": [
+    "frontend engineer",
+    "front-end engineer",
+    "frontend developer",
+    "front end engineer",
+    "ui engineer",
+    "react developer"
+   ]
+  },
+  {
+   "id": "software_engineering",
+   "label": "Software Engineer",
+   "aliases": [
+    "software engineer",
+    "software developer",
+    "sde",
+    "swe",
+    "member of technical staff",
+    "programmer"
+   ]
+  },
+  {
+   "id": "mobile_engineering",
+   "label": "Mobile Engineer",
+   "aliases": [
+    "android engineer",
+    "ios engineer",
+    "mobile engineer",
+    "mobile developer"
+   ]
+  },
+  {
+   "id": "devops_sre",
+   "label": "DevOps / SRE",
+   "aliases": [
+    "site reliability engineer",
+    "sre",
+    "devops engineer",
+    "platform engineer",
+    "infrastructure engineer",
+    "cloud engineer",
+    "reliability engineer"
+   ]
+  },
+  {
+   "id": "qa_testing",
+   "label": "QA / Test Engineer",
+   "aliases": [
+    "sdet",
+    "qa engineer",
+    "test engineer",
+    "quality engineer",
+    "automation engineer",
+    "qa analyst"
+   ]
+  },
+  {
+   "id": "solutions_engineering",
+   "label": "Solutions / Forward-Deployed Engineer",
+   "aliases": [
+    "forward deployed engineer",
+    "solutions engineer",
+    "sales engineer",
+    "solutions architect",
+    "implementation engineer",
+    "customer engineer"
+   ]
+  },
+  {
+   "id": "security",
+   "label": "Security Engineer",
+   "aliases": [
+    "security engineer",
+    "security analyst"
+   ]
+  },
+  {
+   "id": "product_management",
+   "label": "Product Manager",
+   "aliases": [
+    "product manager",
+    "product owner",
+    "technical program manager",
+    "program manager"
+   ]
+  },
+  {
+   "id": "design",
+   "label": "Designer",
+   "aliases": [
+    "product designer",
+    "ux designer",
+    "ui designer",
+    "designer"
+   ]
+  },
+  {
+   "id": "sales",
+   "label": "Sales",
+   "aliases": [
+    "sales development",
+    "account executive",
+    "sales manager",
+    "sales representative",
+    "business development",
+    "sdr",
+    "bdr"
+   ]
+  },
+  {
+   "id": "revenue_operations",
+   "label": "Revenue Operations",
+   "aliases": [
+    "revops",
+    "revenue operations",
+    "sales operations",
+    "gtm operations"
+   ]
+  },
+  {
+   "id": "marketing",
+   "label": "Marketing",
+   "aliases": [
+    "marketing manager",
+    "growth marketer",
+    "content marketer",
+    "marketing"
+   ]
+  },
+  {
+   "id": "customer_success",
+   "label": "Customer Success",
+   "aliases": [
+    "customer success",
+    "customer support",
+    "account manager",
+    "support engineer"
+   ]
+  },
+  {
+   "id": "operations_admin",
+   "label": "Operations / Admin",
+   "aliases": [
+    "operations specialist",
+    "executive assistant",
+    "office manager",
+    "operations manager",
+    "chief of staff",
+    "ea"
+   ]
+  },
+  {
+   "id": "hr",
+   "label": "HR / Recruiting",
+   "aliases": [
+    "hr generalist",
+    "recruiter",
+    "talent acquisition",
+    "people operations",
+    "human resources"
+   ]
+  },
+  {
+   "id": "finance",
+   "label": "Finance",
+   "aliases": [
+    "financial analyst",
+    "accountant",
+    "finance manager",
+    "controller"
+   ]
+  }
+ ],
+ "role_affinity": [
+  [
+   "ml_engineering",
+   "ai_engineering",
+   0.9
+  ],
+  [
+   "ml_engineering",
+   "genai_engineering",
+   0.8
+  ],
+  [
+   "ml_engineering",
+   "nlp_engineering",
+   0.85
+  ],
+  [
+   "ml_engineering",
+   "agentic_ai",
+   0.7
+  ],
+  [
+   "ml_engineering",
+   "ml_research",
+   0.7
+  ],
+  [
+   "ml_engineering",
+   "mlops",
+   0.7
+  ],
+  [
+   "ml_engineering",
+   "data_science",
+   0.8
+  ],
+  [
+   "ml_engineering",
+   "data_engineering",
+   0.45
+  ],
+  [
+   "ml_engineering",
+   "data_analysis",
+   0.5
+  ],
+  [
+   "ml_engineering",
+   "backend_engineering",
+   0.35
+  ],
+  [
+   "ml_engineering",
+   "software_engineering",
+   0.4
+  ],
+  [
+   "ml_engineering",
+   "fullstack_engineering",
+   0.25
+  ],
+  [
+   "ml_engineering",
+   "solutions_engineering",
+   0.4
+  ],
+  [
+   "ai_engineering",
+   "genai_engineering",
+   0.9
+  ],
+  [
+   "ai_engineering",
+   "agentic_ai",
+   0.85
+  ],
+  [
+   "ai_engineering",
+   "nlp_engineering",
+   0.8
+  ],
+  [
+   "ai_engineering",
+   "ml_research",
+   0.6
+  ],
+  [
+   "ai_engineering",
+   "mlops",
+   0.6
+  ],
+  [
+   "ai_engineering",
+   "data_science",
+   0.7
+  ],
+  [
+   "ai_engineering",
+   "backend_engineering",
+   0.45
+  ],
+  [
+   "ai_engineering",
+   "software_engineering",
+   0.45
+  ],
+  [
+   "ai_engineering",
+   "solutions_engineering",
+   0.45
+  ],
+  [
+   "ai_engineering",
+   "data_analysis",
+   0.45
+  ],
+  [
+   "genai_engineering",
+   "agentic_ai",
+   0.9
+  ],
+  [
+   "genai_engineering",
+   "nlp_engineering",
+   0.8
+  ],
+  [
+   "genai_engineering",
+   "data_science",
+   0.6
+  ],
+  [
+   "genai_engineering",
+   "backend_engineering",
+   0.4
+  ],
+  [
+   "genai_engineering",
+   "software_engineering",
+   0.4
+  ],
+  [
+   "agentic_ai",
+   "nlp_engineering",
+   0.7
+  ],
+  [
+   "agentic_ai",
+   "backend_engineering",
+   0.5
+  ],
+  [
+   "agentic_ai",
+   "software_engineering",
+   0.5
+  ],
+  [
+   "agentic_ai",
+   "solutions_engineering",
+   0.5
+  ],
+  [
+   "agentic_ai",
+   "data_science",
+   0.5
+  ],
+  [
+   "nlp_engineering",
+   "ml_research",
+   0.7
+  ],
+  [
+   "nlp_engineering",
+   "data_science",
+   0.75
+  ],
+  [
+   "ml_research",
+   "data_science",
+   0.75
+  ],
+  [
+   "mlops",
+   "devops_sre",
+   0.6
+  ],
+  [
+   "mlops",
+   "data_engineering",
+   0.6
+  ],
+  [
+   "mlops",
+   "backend_engineering",
+   0.5
+  ],
+  [
+   "data_science",
+   "data_analysis",
+   0.8
+  ],
+  [
+   "data_science",
+   "data_engineering",
+   0.5
+  ],
+  [
+   "data_science",
+   "business_analysis",
+   0.5
+  ],
+  [
+   "data_analysis",
+   "business_analysis",
+   0.8
+  ],
+  [
+   "data_analysis",
+   "data_engineering",
+   0.5
+  ],
+  [
+   "data_analysis",
+   "finance",
+   0.35
+  ],
+  [
+   "data_analysis",
+   "revenue_operations",
+   0.3
+  ],
+  [
+   "data_analysis",
+   "product_management",
+   0.3
+  ],
+  [
+   "data_analysis",
+   "qa_testing",
+   0.2
+  ],
+  [
+   "data_analysis",
+   "backend_engineering",
+   0.2
+  ],
+  [
+   "data_analysis",
+   "software_engineering",
+   0.25
+  ],
+  [
+   "data_analysis",
+   "operations_admin",
+   0.2
+  ],
+  [
+   "business_analysis",
+   "product_management",
+   0.5
+  ],
+  [
+   "business_analysis",
+   "revenue_operations",
+   0.45
+  ],
+  [
+   "business_analysis",
+   "finance",
+   0.5
+  ],
+  [
+   "business_analysis",
+   "operations_admin",
+   0.35
+  ],
+  [
+   "data_engineering",
+   "backend_engineering",
+   0.6
+  ],
+  [
+   "data_engineering",
+   "software_engineering",
+   0.5
+  ],
+  [
+   "backend_engineering",
+   "software_engineering",
+   0.9
+  ],
+  [
+   "backend_engineering",
+   "fullstack_engineering",
+   0.75
+  ],
+  [
+   "backend_engineering",
+   "devops_sre",
+   0.5
+  ],
+  [
+   "backend_engineering",
+   "solutions_engineering",
+   0.5
+  ],
+  [
+   "fullstack_engineering",
+   "software_engineering",
+   0.85
+  ],
+  [
+   "fullstack_engineering",
+   "frontend_engineering",
+   0.75
+  ],
+  [
+   "frontend_engineering",
+   "software_engineering",
+   0.7
+  ],
+  [
+   "frontend_engineering",
+   "mobile_engineering",
+   0.5
+  ],
+  [
+   "frontend_engineering",
+   "design",
+   0.35
+  ],
+  [
+   "software_engineering",
+   "devops_sre",
+   0.5
+  ],
+  [
+   "software_engineering",
+   "qa_testing",
+   0.5
+  ],
+  [
+   "software_engineering",
+   "mobile_engineering",
+   0.6
+  ],
+  [
+   "software_engineering",
+   "solutions_engineering",
+   0.5
+  ],
+  [
+   "devops_sre",
+   "security",
+   0.5
+  ],
+  [
+   "qa_testing",
+   "backend_engineering",
+   0.35
+  ],
+  [
+   "solutions_engineering",
+   "sales",
+   0.4
+  ],
+  [
+   "solutions_engineering",
+   "customer_success",
+   0.5
+  ],
+  [
+   "sales",
+   "revenue_operations",
+   0.6
+  ],
+  [
+   "sales",
+   "marketing",
+   0.5
+  ],
+  [
+   "sales",
+   "customer_success",
+   0.55
+  ],
+  [
+   "revenue_operations",
+   "marketing",
+   0.4
+  ],
+  [
+   "revenue_operations",
+   "finance",
+   0.35
+  ],
+  [
+   "revenue_operations",
+   "operations_admin",
+   0.4
+  ],
+  [
+   "operations_admin",
+   "hr",
+   0.4
+  ],
+  [
+   "product_management",
+   "design",
+   0.4
+  ],
+  [
+   "product_management",
+   "marketing",
+   0.4
+  ]
+ ],
+ "default_role_affinity": 0.1,
+ "seniority_levels": [
+  {
+   "name": "junior",
+   "implied_years": 0,
+   "terms": [
+    "junior",
+    "jr",
+    "entry level",
+    "entry-level",
+    "graduate",
+    "trainee",
+    "intern",
+    "internship",
+    "associate",
+    "fresher",
+    "new grad"
+   ]
+  },
+  {
+   "name": "senior",
+   "implied_years": 4,
+   "terms": [
+    "senior",
+    "sr"
+   ]
+  },
+  {
+   "name": "lead",
+   "implied_years": 6,
+   "terms": [
+    "lead",
+    "staff",
+    "manager",
+    "head"
+   ]
+  },
+  {
+   "name": "principal",
+   "implied_years": 8,
+   "terms": [
+    "principal",
+    "architect",
+    "director",
+    "vp",
+    "vice president"
+   ]
+  }
+ ],
+ "location_groups": {
+  "india": [
+   "noida",
+   "bengaluru",
+   "bangalore",
+   "blr",
+   "gurgaon",
+   "gurugram",
+   "delhi",
+   "new delhi",
+   "ncr",
+   "mumbai",
+   "pune",
+   "hyderabad",
+   "chennai",
+   "kolkata",
+   "ahmedabad"
+  ],
+  "bengaluru": [
+   "bangalore",
+   "blr"
+  ],
+  "bangalore": [
+   "bengaluru",
+   "blr"
+  ],
+  "gurgaon": [
+   "gurugram"
+  ],
+  "delhi": [
+   "new delhi",
+   "ncr"
+  ],
+  "united states": [
+   "usa",
+   "us",
+   "bay area",
+   "california",
+   "san francisco",
+   "new york",
+   "mountain view",
+   "seattle",
+   "austin",
+   "boston"
+  ],
+  "usa": [
+   "united states",
+   "us",
+   "bay area",
+   "california",
+   "san francisco",
+   "new york",
+   "mountain view",
+   "seattle",
+   "austin",
+   "boston"
+  ],
+  "united kingdom": [
+   "uk",
+   "london",
+   "manchester"
+  ],
+  "uk": [
+   "united kingdom",
+   "london",
+   "manchester"
+  ],
+  "europe": [
+   "germany",
+   "berlin",
+   "france",
+   "paris",
+   "netherlands",
+   "amsterdam",
+   "spain",
+   "ireland",
+   "dublin",
+   "london",
+   "uk"
+  ]
+ },
+ "section_headings": {
+  "nice_to_have": [
+   "nice to have",
+   "nice-to-have",
+   "good to have",
+   "^bonus",
+   "preferred qualifications",
+   "preferred skills",
+   "strong plus",
+   "^pluses",
+   "it would be great if",
+   "extra credit"
+  ],
+  "required": [
+   "^requirements?\\b",
+   "required qualifications",
+   "qualifications",
+   "must have",
+   "must-have",
+   "what you('|’)?ll bring",
+   "what you will bring",
+   "what you bring",
+   "what we('|’)?re looking for",
+   "what we are looking for",
+   "^who you are",
+   "^about you",
+   "^you have",
+   "you should have",
+   "^(required |technical |key )?skills\\b",
+   "^(core )?competenc",
+   "love to explore more about you if you have",
+   "^experience\\b"
+  ],
+  "neutral": [
+   "responsibilit",
+   "what you('|’)?ll do",
+   "what you will do",
+   "what you('|’)?ll get to do",
+   "^your role",
+   "^about the role",
+   "^the role",
+   "role overview",
+   "day[- ]to[- ]day",
+   "why this role exists",
+   "what success looks like",
+   "key duties",
+   "^job description"
+  ],
+  "ignore": [
+   "^perks",
+   "^benefits",
+   "^compensation",
+   "how we hire",
+   "^why join",
+   "^why us",
+   "equal opportunity",
+   "^to learn more",
+   "^our values",
+   "^funding",
+   "^linkedin",
+   "interview process",
+   "^about (?!the role|this role|the job|you\\b)"
+  ]
+ },
+ "inline_nice_to_have": [
+  "is a plus",
+  "a plus",
+  "nice to have",
+  "good to have",
+  "bonus",
+  "preferred",
+  "desirable",
+  "would be great",
+  "is an advantage",
+  "ideally"
+ ]
+}

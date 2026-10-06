@@ -66,6 +66,7 @@ RUN playwright install chromium
 
 COPY app ./app
 COPY automation ./automation
+COPY jobagent ./jobagent
 COPY notebook ./notebook
 COPY checklist.md .
 COPY data ./data
