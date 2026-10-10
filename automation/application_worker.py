@@ -10,6 +10,7 @@ from playwright.sync_api import (
 )
 
 from application_state import (
+    mark_submitted,
     update_application_status,
 )
 
@@ -593,6 +594,71 @@ def human_review(
 
 
 # ============================================================
+# SUBMISSION OUTCOME
+# ============================================================
+
+def confirm_submission(job_id):
+    """
+    Ask whether the user submitted the application themselves.
+
+    Only an explicit yes records SUBMITTED. Any other answer, or
+    leaving the prompt, keeps the application at READY_FOR_REVIEW.
+    """
+
+    try:
+
+        answer = input(
+            "\nDid you submit this application "
+            "yourself in the browser? [y/N]: "
+        )
+
+    except (
+        EOFError,
+        KeyboardInterrupt,
+    ):
+
+        answer = ""
+
+    if answer.strip().lower() not in ("y", "yes"):
+
+        print(
+            "\nNot recorded as submitted. "
+            f"The application stays {READY_FOR_REVIEW}."
+        )
+
+        print(
+            "You can mark it as submitted "
+            "later from the dashboard."
+        )
+
+        return False
+
+    try:
+
+        changed, message = mark_submitted(
+            QUEUE_FILE,
+            job_id,
+        )
+
+    except Exception as e:
+
+        print(
+            "\nWARNING: Could not record "
+            "the submission:"
+        )
+
+        print(e)
+
+        return False
+
+    print(
+        f"\n{message}"
+    )
+
+    return changed
+
+
+# ============================================================
 # PROCESS ONE APPLICATION
 # ============================================================
 
@@ -900,6 +966,14 @@ def process_application(job):
             human_review(
                 page,
                 job,
+            )
+
+            # ------------------------------------------------
+            # SUBMISSION OUTCOME
+            # ------------------------------------------------
+
+            confirm_submission(
+                job_id
             )
 
             # ------------------------------------------------

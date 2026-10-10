@@ -1,9 +1,15 @@
 import json
+import os
 import re
 import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
+
+# Must be set before sentence_transformers is imported. The models here
+# are PyTorch; without this, transformers also tries to load TensorFlow
+# and fails when Keras 3 is installed without tf-keras.
+os.environ.setdefault("USE_TF", "0")
 
 import pandas as pd
 import pymupdf
@@ -88,8 +94,14 @@ def find_model_path():
         print()
 
 
+    # The dashboard shows only the error text, so it names the
+    # expected location and the setting that avoids needing the model.
     raise FileNotFoundError(
         "\nMatching model was not found."
+        "\nThe legacy matcher needs the fine-tuned model at:"
+        f"\n{MODEL_PATH_CANDIDATES[0]}"
+        "\nTo score with the hybrid matcher instead, which does not "
+        "use this model, set JOBAGENT_MATCHER=hybrid in .env."
     )
 
 

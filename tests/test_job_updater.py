@@ -22,6 +22,9 @@ LEGACY_COLUMNS = [
     "source", "is_new", "updated_at",
 ]
 
+# The updater fixture replaces find_model_path; this is the real one.
+REAL_FIND_MODEL_PATH = job_updater.find_model_path
+
 # Similarity the fake model returns for each job, by title.
 SIMILARITY = {
     "Data Analyst": 0.8,
@@ -330,6 +333,60 @@ def test_hybrid_scores_every_job_but_recommends_the_top_n(updater):
     assert len(scored) == 3
     assert scored.loc[scored.job_id == "ml", "in_application_workflow"].item()
     assert list(recommended["job_id"]) == ["analyst"]
+
+
+# ------------------------------------------------------------
+# The fine-tuned model is a legacy-only requirement
+# ------------------------------------------------------------
+
+@pytest.fixture
+def missing_model(updater, tmp_path, monkeypatch):
+    """The real model lookup, with no model at any candidate path."""
+
+    candidates = [
+        tmp_path / "notebook" / "models" / job_updater.MODEL_NAME,
+        tmp_path / "models" / job_updater.MODEL_NAME,
+    ]
+
+    monkeypatch.setattr(job_updater, "MODEL_PATH_CANDIDATES", candidates)
+    monkeypatch.setattr(job_updater, "find_model_path", REAL_FIND_MODEL_PATH)
+
+    return candidates
+
+
+def test_hybrid_does_not_need_the_legacy_model(
+    updater, missing_model, monkeypatch
+):
+    def no_legacy_model(path):
+        raise AssertionError("hybrid must not load the legacy model")
+
+    monkeypatch.setattr(job_updater, "SentenceTransformer", no_legacy_model)
+    updater.use("hybrid")
+
+    recommended = updater.run()
+
+    assert len(recommended) == 3
+    assert set(pd.read_csv(updater.recommended_file)["matcher"]) == {"hybrid"}
+
+
+def test_legacy_reports_the_expected_model_path(updater, missing_model):
+    updater.use("legacy")
+    write_queue(updater.queue_file, [queue_row("ml", "USER_APPROVED")])
+    queue_before = updater.queue_file.read_text()
+
+    with pytest.raises(FileNotFoundError) as error:
+        updater.run()
+
+    message = str(error.value)
+    assert "Matching model was not found" in message
+    assert str(missing_model[0]) in message
+    assert "JOBAGENT_MATCHER=hybrid" in message
+
+    # It fails rather than switching matcher, and writes nothing.
+    assert not updater.recommended_file.exists()
+    assert not updater.settings.scored_jobs_file.exists()
+    assert not updater.metadata_file.exists()
+    assert updater.queue_file.read_text() == queue_before
 
 
 # ------------------------------------------------------------

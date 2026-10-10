@@ -1,8 +1,17 @@
 from pathlib import Path
 import subprocess
+import sys
 
 import pandas as pd
 import streamlit as st
+
+# The queue state rules are shared with the application worker.
+AUTOMATION_DIR = Path(__file__).resolve().parent.parent / "automation"
+
+if str(AUTOMATION_DIR) not in sys.path:
+    sys.path.insert(0, str(AUTOMATION_DIR))
+
+from application_state import mark_submitted
 
 
 # ============================================================
@@ -342,6 +351,58 @@ def approve_application(job):
         "Application approved and "
         "added to the queue."
     )
+
+
+# ============================================================
+# MARK APPLICATION SUBMITTED
+# ============================================================
+
+def mark_application_submitted(job_id):
+
+    try:
+
+        return mark_submitted(
+            APPLICATION_QUEUE_FILE,
+            job_id
+        )
+
+    except Exception as e:
+
+        return False, (
+            f"Could not update application queue: {e}"
+        )
+
+
+def mark_submitted_button(
+    job_id,
+    key
+):
+
+    # Shown only once the worker has filled the form and the
+    # application is waiting for the user's own submission.
+    if st.button(
+        "✅ Mark as submitted",
+        key=key,
+        width="stretch",
+        help=(
+            "Use this after you have submitted the "
+            "application yourself in the browser."
+        )
+    ):
+
+        success, message = (
+            mark_application_submitted(
+                job_id
+            )
+        )
+
+        # Kept across the rerun so the message is still visible.
+        st.session_state["queue_notice"] = (
+            success,
+            message
+        )
+
+        st.rerun()
 
 
 # ============================================================
@@ -792,6 +853,17 @@ else:
                     f"Skipped: {job['title']}"
                 )
 
+        # ----------------------------------------------------
+        # MARK AS SUBMITTED
+        # ----------------------------------------------------
+
+        if current_status.upper() == "READY_FOR_REVIEW":
+
+            mark_submitted_button(
+                job_id,
+                key=f"submitted_{job_id}_{index}"
+            )
+
 
 # ============================================================
 # APPLICATION QUEUE
@@ -805,6 +877,28 @@ st.header(
 
 
 queue = load_application_queue()
+
+
+queue_notice = st.session_state.pop(
+    "queue_notice",
+    None
+)
+
+if queue_notice is not None:
+
+    notice_success, notice_message = queue_notice
+
+    if notice_success:
+
+        st.success(
+            notice_message
+        )
+
+    else:
+
+        st.warning(
+            notice_message
+        )
 
 
 if queue.empty:
@@ -953,6 +1047,57 @@ else:
         width="stretch",
         hide_index=False
     )
+
+    # --------------------------------------------------------
+    # AWAITING SUBMISSION
+    # --------------------------------------------------------
+
+    # Listed here as well as on the job card, because a job in
+    # the application workflow drops out of the recommendations
+    # at the next refresh.
+    awaiting = queue[
+        queue["status"]
+        .astype(str)
+        .str.upper()
+        .eq("READY_FOR_REVIEW")
+    ].drop_duplicates(
+        subset=["job_id"]
+    )
+
+    if not awaiting.empty:
+
+        st.subheader(
+            "Ready for your review"
+        )
+
+        st.caption(
+            "Submit each application yourself in the "
+            "browser, then record it here."
+        )
+
+        for row_index, application in awaiting.iterrows():
+
+            col_job, col_action = st.columns(
+                [4, 1]
+            )
+
+            with col_job:
+
+                st.write(
+                    f"**{application['title']}** | "
+                    f"{application['company']} | "
+                    f"{application['location']}"
+                )
+
+            with col_action:
+
+                mark_submitted_button(
+                    str(application["job_id"]),
+                    key=(
+                        f"queue_submitted_"
+                        f"{application['job_id']}_{row_index}"
+                    )
+                )
 
 
 # ============================================================

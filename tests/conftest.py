@@ -1,3 +1,8 @@
+import os
+
+# Before anything imports sentence_transformers; see jobagent/__init__.py.
+os.environ.setdefault("USE_TF", "0")
+
 import pytest
 
 from jobagent.config import Settings

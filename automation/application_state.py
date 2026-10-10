@@ -161,6 +161,96 @@ def update_application_status(
 
 
 # ============================================================
+# MARK SUBMITTED
+# ============================================================
+
+def mark_submitted(
+    queue_file,
+    job_id,
+):
+    """
+    Record that the user submitted an application themselves.
+
+    Only a READY_FOR_REVIEW row for this job is changed. Returns
+    (changed, message); nothing is written unless changed is True.
+    """
+
+    queue_file = Path(queue_file)
+
+    if not queue_file.exists():
+
+        return False, (
+            f"Application queue not found: {queue_file}"
+        )
+
+    # Read every cell as text so the other rows are written
+    # back exactly as they were.
+    queue = pd.read_csv(
+        queue_file,
+        dtype=str,
+        keep_default_na=False,
+    )
+
+    if (
+        IDENTIFIER_COLUMN not in queue.columns
+        or "status" not in queue.columns
+    ):
+
+        return False, (
+            "Application queue has no job_id or status column."
+        )
+
+    statuses = (
+        queue.loc[
+            queue[IDENTIFIER_COLUMN].eq(str(job_id)),
+            "status",
+        ]
+        .str.strip()
+        .str.upper()
+    )
+
+    if statuses.empty:
+
+        return False, (
+            f"Application {job_id} is not in the queue."
+        )
+
+    ready = statuses.index[
+        statuses.eq(READY_FOR_REVIEW)
+    ]
+
+    if len(ready) == 0:
+
+        current_status = statuses.iloc[0]
+
+        if current_status == SUBMITTED:
+
+            return False, (
+                "Application is already marked SUBMITTED."
+            )
+
+        return False, (
+            f"Application is {current_status}. Only a "
+            "READY_FOR_REVIEW application can be marked "
+            "as submitted."
+        )
+
+    queue.at[
+        ready[0],
+        "status",
+    ] = SUBMITTED
+
+    save_application_queue(
+        queue,
+        queue_file,
+    )
+
+    return True, (
+        "Application marked as SUBMITTED."
+    )
+
+
+# ============================================================
 # UPDATE BY INDEX
 # ============================================================
 
